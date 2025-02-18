@@ -37,8 +37,8 @@ module ScoutApm
           ### See moped instrument for Moped driven deploys
 
           ### 5.x Mongoid
-          if (mongoid_v5? || mongoid_v6? || mongoid_v7? || mongoid_v8?) && defined?(::Mongoid::Contextual::Mongo)
-            logger.info "Instrumenting Mongoid 5.x/6.x/7.x/8.x"
+          if (mongoid_v5? || mongoid_v6? || mongoid_v7? || mongoid_v8? || mongoid_v9?) && defined?(::Mongoid::Contextual::Mongo)
+            logger.info "Instrumenting Mongoid 5.x/6.x/7.x/8.x/9.x"
             # All the public methods from Mongoid::Contextual::Mongo.
             # TODO: Geo and MapReduce support (?). They are in other Contextual::* classes
             methods = [
@@ -121,6 +121,14 @@ module ScoutApm
       def mongoid_v8?
         if defined?(::Mongoid::VERSION)
           ::Mongoid::VERSION =~ /\A8/
+        else
+          false
+        end
+      end
+
+      def mongoid_v9?
+        if defined?(::Mongoid::VERSION)
+          ::Mongoid::VERSION =~ /\A9/
         else
           false
         end
